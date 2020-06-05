@@ -1,4 +1,4 @@
-# BFITT
+# BFITT: Bit Flip Injection Into PyTorch Tensors
 This repo provides efficient CUDA kernel based Bit Flip Injection into PyTorch Tensors up to 4d. (Can easily be extended for higher dimensions.)
 
 Using BFITT with e.g. 8 bit:
