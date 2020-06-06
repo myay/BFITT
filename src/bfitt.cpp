@@ -4,13 +4,13 @@
 #define CHECK_CONTIGUOUS(x) AT_ASSERTM(x.is_contiguous(), #x " must be contiguous")
 #define CHECK_INPUT(x) CHECK_CUDA(x); CHECK_CONTIGUOUS(x)
 
-std::vector<torch::Tensor> fi_uint8_cuda(
+torch::Tensor fi_uint8_cuda(
     torch::Tensor input,
     float f01,
     float f10
   );
 
-std::vector<torch::Tensor> fi_uint8(
+torch::Tensor fi_uint8(
     torch::Tensor input,
     float f01,
     float f10

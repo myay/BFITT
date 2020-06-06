@@ -54,11 +54,31 @@ __global__ void fi_uint8_cuda_kernel(
   }
 }
 
-std::vector<torch::Tensor> fi_uint8_cuda(
+torch::Tensor fi_uint8_cuda(
   torch::Tensor input,
   float f01,
   float f10
 ) {
+
+  int64_t shape_len = input.dim();
+  std::vector<int64_t> shape_original;
+  for (int i = 0; i < shape_len; i++)
+  {
+    shape_original.push_back(input.size(i));
+  }
+
+  if (shape_len == 1)
+  {
+    input = input.reshape({input.size(0),1,1});
+  }
+  if (shape_len == 2)
+  {
+    input = input.reshape({input.size(0),input.size(1),1});
+  }
+  if (shape_len > 3)
+  {
+    input = input.reshape({input.size(0),input.size(1),-1});
+  }
 
   const int input_size_x = input.size(0);
   const int input_size_y = input.size(1);
@@ -86,8 +106,8 @@ std::vector<torch::Tensor> fi_uint8_cuda(
         seed0
     );
   }));
-
-  return {input};
+  input = input.reshape(shape_original);
+  return input;
 }
 
 template <typename scalar_t>
