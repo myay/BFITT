@@ -14,5 +14,6 @@ There are functions available for 8, 16, 32, and 64 bits:
 - bfi_64bit
 
 For configuring threads per block before compilation, see ```src/bfitt_kernels.cu``` and set the macros ```TPB_X```, ```TPB_Y```, and ```TPB_Z```.
+
 ---
 This software contains source code provided by NVIDIA Corporation.
