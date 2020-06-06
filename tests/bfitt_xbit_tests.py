@@ -6,10 +6,7 @@ import argparse
 import torch
 
 sys.path.append("../")
-from bfitt_lib import bfi_8bit_cuda
-from bfitt_lib import bfi_16bit_cuda
-from bfitt_lib import bfi_32bit_cuda
-from bfitt_lib import bfi_64bit_cuda
+import bfitt
 
 # wrapper for profiling functions
 def cuda_profiler(profile_function, input, p01, p10):
@@ -41,25 +38,25 @@ def main():
             print("\n8 bit")
             input = torch.ones_like(input)
             X_cuda_uint8 = input.type(torch.uint8)
-            X_cuda_uint8 = cuda_profiler(bfi_8bit_cuda, X_cuda_uint8, p01, p10)
+            X_cuda_uint8 = cuda_profiler(bfitt.bfi_8bit, X_cuda_uint8, p01, p10)
             #print(X_cuda_uint8)
 
             print("\n16 bit")
             input = torch.ones_like(input)
             X_cuda_int16 = input.type(torch.int16)
-            X_cuda_int16 = cuda_profiler(bfi_16bit_cuda, X_cuda_int16, p01, p10)
+            X_cuda_int16 = cuda_profiler(bfitt.bfi_16bit, X_cuda_int16, p01, p10)
             #print(X_cuda_int16)
 
             print("\n32 bit")
             input = torch.ones_like(input)
             X_cuda_int32 = input.type(torch.int32)
-            X_cuda_int32 = cuda_profiler(bfi_32bit_cuda, X_cuda_int32, p01, p10)
+            X_cuda_int32 = cuda_profiler(bfitt.bfi_32bit, X_cuda_int32, p01, p10)
             #print(X_cuda_int32)
 
             print("\n64 bit")
             input = torch.ones_like(input)
             X_cuda_int64 = input.type(torch.int64)
-            X_cuda_int64 = cuda_profiler(bfi_64bit_cuda, X_cuda_int64, p01, p10)
+            X_cuda_int64 = cuda_profiler(bfitt.bfi_64bit, X_cuda_int64, p01, p10)
             #print(X_cuda_int64)
 
             print("\n\n---\n\n")

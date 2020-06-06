@@ -8,6 +8,12 @@
 #include <curand_kernel.h>
 #include <chrono>
 
+// threads per block
+#define TPB_X 8
+#define TPB_Y 8
+#define TPB_Z 8
+
+// 8 bit function
 template <typename scalar_t>
 __global__ void fi_uint8_cuda_kernel(
     torch::PackedTensorAccessor<scalar_t,3,torch::RestrictPtrTraits,size_t> input,
@@ -83,9 +89,9 @@ torch::Tensor fi_uint8_cuda(
   const int input_size_x = input.size(0);
   const int input_size_y = input.size(1);
   const int input_size_z = input.size(2);
-  int threads_x = 8; // per block, 8
-  int threads_y = 8;
-  int threads_z = 8;
+  int threads_x = TPB_X; // per block, 8
+  int threads_y = TPB_Y;
+  int threads_z = TPB_Z;
 
   const dim3 threads(threads_x,threads_y, threads_z);
   const dim3 blocks((input_size_x + threads_x - 1) / threads_x,
@@ -110,6 +116,7 @@ torch::Tensor fi_uint8_cuda(
   return input;
 }
 
+// 16 bit function
 template <typename scalar_t>
 __global__ void fi_uint16_cuda_kernel(
     torch::PackedTensorAccessor<scalar_t,3,torch::RestrictPtrTraits,size_t> input,
@@ -156,18 +163,38 @@ __global__ void fi_uint16_cuda_kernel(
   }
 }
 
-std::vector<torch::Tensor> fi_uint16_cuda(
+torch::Tensor fi_uint16_cuda(
   torch::Tensor input,
   float f01,
   float f10
 ) {
 
+  int64_t shape_len = input.dim();
+  std::vector<int64_t> shape_original;
+  for (int i = 0; i < shape_len; i++)
+  {
+    shape_original.push_back(input.size(i));
+  }
+
+  if (shape_len == 1)
+  {
+    input = input.reshape({input.size(0),1,1});
+  }
+  if (shape_len == 2)
+  {
+    input = input.reshape({input.size(0),input.size(1),1});
+  }
+  if (shape_len > 3)
+  {
+    input = input.reshape({input.size(0),input.size(1),-1});
+  }
+
   const int input_size_x = input.size(0);
   const int input_size_y = input.size(1);
   const int input_size_z = input.size(2);
-  int threads_x = 8; // per block, 8
-  int threads_y = 8;
-  int threads_z = 8;
+  int threads_x = TPB_X; // per block, 8
+  int threads_y = TPB_Y;
+  int threads_z = TPB_Z;
 
   const dim3 threads(threads_x,threads_y, threads_z);
   const dim3 blocks((input_size_x + threads_x - 1) / threads_x,
@@ -188,10 +215,11 @@ std::vector<torch::Tensor> fi_uint16_cuda(
         seed0
     );
   }));
-
-  return {input};
+  input = input.reshape(shape_original);
+  return input;
 }
 
+// 32 bit function
 template <typename scalar_t>
 __global__ void fi_uint32_cuda_kernel(
     torch::PackedTensorAccessor<scalar_t,3,torch::RestrictPtrTraits,size_t> input,
@@ -238,18 +266,38 @@ __global__ void fi_uint32_cuda_kernel(
   }
 }
 
-std::vector<torch::Tensor> fi_uint32_cuda(
+torch::Tensor fi_uint32_cuda(
   torch::Tensor input,
   float f01,
   float f10
 ) {
 
+  int64_t shape_len = input.dim();
+  std::vector<int64_t> shape_original;
+  for (int i = 0; i < shape_len; i++)
+  {
+    shape_original.push_back(input.size(i));
+  }
+
+  if (shape_len == 1)
+  {
+    input = input.reshape({input.size(0),1,1});
+  }
+  if (shape_len == 2)
+  {
+    input = input.reshape({input.size(0),input.size(1),1});
+  }
+  if (shape_len > 3)
+  {
+    input = input.reshape({input.size(0),input.size(1),-1});
+  }
+
   const int input_size_x = input.size(0);
   const int input_size_y = input.size(1);
   const int input_size_z = input.size(2);
-  int threads_x = 8; // per block, 8
-  int threads_y = 8;
-  int threads_z = 8;
+  int threads_x = TPB_X; // per block, 8
+  int threads_y = TPB_Y;
+  int threads_z = TPB_Z;
 
   const dim3 threads(threads_x,threads_y, threads_z);
   const dim3 blocks((input_size_x + threads_x - 1) / threads_x,
@@ -270,10 +318,12 @@ std::vector<torch::Tensor> fi_uint32_cuda(
         seed0
     );
   }));
-
-  return {input};
+  input = input.reshape(shape_original);
+  return input;
 }
 
+
+// 64 bit function
 template <typename scalar_t>
 __global__ void fi_uint64_cuda_kernel(
     torch::PackedTensorAccessor<scalar_t,3,torch::RestrictPtrTraits,size_t> input,
@@ -320,18 +370,38 @@ __global__ void fi_uint64_cuda_kernel(
   }
 }
 
-std::vector<torch::Tensor> fi_uint64_cuda(
+torch::Tensor fi_uint64_cuda(
   torch::Tensor input,
   float f01,
   float f10
 ) {
 
+  int64_t shape_len = input.dim();
+  std::vector<int64_t> shape_original;
+  for (int i = 0; i < shape_len; i++)
+  {
+    shape_original.push_back(input.size(i));
+  }
+
+  if (shape_len == 1)
+  {
+    input = input.reshape({input.size(0),1,1});
+  }
+  if (shape_len == 2)
+  {
+    input = input.reshape({input.size(0),input.size(1),1});
+  }
+  if (shape_len > 3)
+  {
+    input = input.reshape({input.size(0),input.size(1),-1});
+  }
+
   const int input_size_x = input.size(0);
   const int input_size_y = input.size(1);
   const int input_size_z = input.size(2);
-  int threads_x = 8; // per block, 8
-  int threads_y = 8;
-  int threads_z = 8;
+  int threads_x = TPB_X; // per block, 8
+  int threads_y = TPB_Y;
+  int threads_z = TPB_Z;
 
   const dim3 threads(threads_x,threads_y, threads_z);
   const dim3 blocks((input_size_x + threads_x - 1) / threads_x,
@@ -352,6 +422,6 @@ std::vector<torch::Tensor> fi_uint64_cuda(
         seed0
     );
   }));
-
-  return {input};
+  input = input.reshape(shape_original);
+  return input;
 }

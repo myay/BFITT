@@ -4,6 +4,7 @@
 #define CHECK_CONTIGUOUS(x) AT_ASSERTM(x.is_contiguous(), #x " must be contiguous")
 #define CHECK_INPUT(x) CHECK_CUDA(x); CHECK_CONTIGUOUS(x)
 
+// 8 bit function
 torch::Tensor fi_uint8_cuda(
     torch::Tensor input,
     float f01,
@@ -19,14 +20,14 @@ torch::Tensor fi_uint8(
   return fi_uint8_cuda(input, f01, f10);
 }
 
-
-std::vector<torch::Tensor> fi_uint16_cuda(
+// 16 bit function
+torch::Tensor fi_uint16_cuda(
     torch::Tensor input,
     float f01,
     float f10
   );
 
-std::vector<torch::Tensor> fi_uint16(
+torch::Tensor fi_uint16(
     torch::Tensor input,
     float f01,
     float f10
@@ -35,14 +36,14 @@ std::vector<torch::Tensor> fi_uint16(
   return fi_uint16_cuda(input, f01, f10);
 }
 
-
-std::vector<torch::Tensor> fi_uint32_cuda(
+// 32 bit function
+torch::Tensor fi_uint32_cuda(
     torch::Tensor input,
     float f01,
     float f10
   );
 
-std::vector<torch::Tensor> fi_uint32(
+torch::Tensor fi_uint32(
     torch::Tensor input,
     float f01,
     float f10
@@ -51,14 +52,14 @@ std::vector<torch::Tensor> fi_uint32(
   return fi_uint32_cuda(input, f01, f10);
 }
 
-
-std::vector<torch::Tensor> fi_uint64_cuda(
+// 64 bit function
+torch::Tensor fi_uint64_cuda(
     torch::Tensor input,
     float f01,
     float f10
   );
 
-std::vector<torch::Tensor> fi_uint64(
+torch::Tensor fi_uint64(
     torch::Tensor input,
     float f01,
     float f10
