@@ -1,6 +1,5 @@
 # BFITT: Bit Flip Injection Into PyTorch Tensors
 
----
 This repository provides efficient CUDA kernel-based bit flip injection into PyTorch tensors for any number of dimensions and all data types except torch.bool and torch.float16.
 
 Using BFITT:
