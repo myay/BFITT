@@ -2,7 +2,7 @@
 This repo provides efficient CUDA kernel based Bit Flip Injection into PyTorch Tensors for all PyTorch data types and for any number of dimensions.
 
 Using BFITT:
-- ```cd src/``` and install with ```python setup.py install``` in folder src
+- ```cd src/``` and install with ```python setup.py install```
 - ```import torch``` and ```import bfitt```
 - use ```bfitt.bfi_8bit(input, p01, p10)``` to call the bfi function that injects bit flips into all 8 bit data types, where ```p01``` is the probability in decimal for flipping 0->1 and ```p10``` for 1->0
 - in interactive mode, try ```bfitt.bfi_8bit(torch.ones(2,2,2,2).type(torch.uint8).cuda(), 0.03, 0)```, to test and see the effect of bit flips
