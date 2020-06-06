@@ -2,7 +2,6 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 #include <vector>
-#include <stdio.h>
 #include <cstdint>
 #include <curand.h>
 #include <curand_kernel.h>
