@@ -1,4 +1,4 @@
-![logo](https://i.imgur.com/DmiHwzW.png) 
+![logo](https://i.imgur.com/X0dUydE.png) 
 
 Bit Flip Injection into PyTorch Tensors
 ---
