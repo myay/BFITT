@@ -1,6 +1,6 @@
-# Bit Flip Injection into PyTorch Tensors ![logo](https://i.imgur.com/X0dUydE.png) 
-
-This repository provides efficient CUDA kernel-based bit flip injection into PyTorch tensors for any number of dimensions and all data types except torch.bool and torch.float16.
+# Bit Flip Injection into PyTorch Tensors
+![logo](https://i.imgur.com/X0dUydE.png) 
+provides efficient CUDA kernel-based bit flip injection into PyTorch tensors for any number of dimensions and all data types except torch.bool and torch.float16.
 
 Install requirements: CUDA toolkit, pytorch, pybind11
 
