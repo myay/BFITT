@@ -6,7 +6,7 @@ Install requirements: CUDA toolkit, pytorch, pybind11
 
 Using BFITT:
 - install with ```python setup.py install --user```
-- ```import torch``` and ```import bfitt```
+- First (!) ```import torch``` and then ```import bfitt```
 - in interactive mode, try ```bfitt.bfi_8bit(torch.ones(2,2,2,2).type(torch.uint8).cuda(), 0.03, 0)```, to test the installation and see the effect of bit flips
 - we use ```bfitt.bfi_8bit(input, p01, p10)``` to call the bfi function that injects bit flips into all 8 bit data types, where ```input``` is a PyTorch tensor and ```p01``` is the probability in decimal for flipping 0->1 and ```p10``` for 1->0
 
